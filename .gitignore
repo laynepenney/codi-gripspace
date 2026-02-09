@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+target/
+
+# Local data
+.codi/
+.codi-env
+
+# OS
+.DS_Store

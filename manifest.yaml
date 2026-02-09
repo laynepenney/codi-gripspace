@@ -1,0 +1,106 @@
+version: 1
+
+manifest:
+  url: https://github.com/laynepenney/codi-gripspace.git
+  linkfile:
+    - src: CODI.md
+      dest: CODI.md
+    - src: CLAUDE.md
+      dest: CLAUDE.md
+    - src: AGENTS.md
+      dest: AGENTS.md
+    - src: envsetup.sh
+      dest: envsetup.sh
+    # OpenCode skill format
+    - src: .opencode/skill/gitgrip
+      dest: .opencode/skill/gitgrip
+    - src: .opencode/skill/codi
+      dest: .opencode/skill/codi
+    - src: .opencode/skill/codi-rs
+      dest: .opencode/skill/codi-rs
+    # Codex skill format
+    - src: .codex/skills/gitgrip
+      dest: .codex/skills/gitgrip
+    - src: .codex/skills/codi
+      dest: .codex/skills/codi
+    - src: .codex/skills/codi-rs
+      dest: .codex/skills/codi-rs
+
+repos:
+  codi:
+    url: https://github.com/laynepenney/codi.git
+    path: ./codi
+    default_branch: main
+    linkfile:
+      - src: .claude/skills/codi
+        dest: .claude/skills/codi
+      - src: .claude/skills/codi-rs
+        dest: .claude/skills/codi-rs
+
+  gitgrip:
+    url: https://github.com/laynepenney/gitgrip.git
+    path: ./gitgrip
+    default_branch: main
+    linkfile:
+      - src: .claude/skills/gitgrip
+        dest: .claude/skills/gitgrip
+
+  # Reference implementations (read-only)
+  opencode:
+    url: https://github.com/anomalyco/opencode.git
+    path: ./ref/opencode
+    default_branch: main
+    reference: true
+
+  aider:
+    url: https://github.com/Aider-AI/aider.git
+    path: ./ref/aider
+    default_branch: main
+    reference: true
+
+  codex:
+    url: https://github.com/openai/codex.git
+    path: ./ref/codex
+    default_branch: main
+    reference: true
+
+workspace:
+  scripts:
+    # TypeScript codi
+    build-ts:
+      command: "cd codi && pnpm install && pnpm build"
+      description: "Build codi (TypeScript)"
+    dev-ts:
+      command: "cd codi && pnpm dev"
+      description: "Run codi TypeScript in dev mode"
+    test-ts:
+      command: "cd codi && pnpm test"
+      description: "Run codi TypeScript tests"
+    # Rust codi
+    build-rs:
+      command: "cd codi/codi-rs && cargo build"
+      description: "Build codi (Rust)"
+    dev-rs:
+      command: "cd codi/codi-rs && cargo run"
+      description: "Run codi Rust"
+    test-rs:
+      command: "cd codi/codi-rs && cargo test"
+      description: "Run codi Rust tests"
+    # gitgrip
+    build-gr:
+      command: "cd gitgrip && cargo build"
+      description: "Build gitgrip"
+    test-gr:
+      command: "cd gitgrip && cargo test"
+      description: "Run gitgrip tests"
+    # Combined
+    build-all:
+      command: "cd codi && pnpm install && pnpm build && cd codi-rs && cargo build && cd ../../gitgrip && cargo build"
+      description: "Build everything"
+    test-all:
+      command: "cd codi && pnpm test && cd codi-rs && cargo test && cd ../../gitgrip && cargo test"
+      description: "Run all tests"
+
+settings:
+  pr_prefix: "[cross-repo]"
+  merge_strategy: all-or-nothing
