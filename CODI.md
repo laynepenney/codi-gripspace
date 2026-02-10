@@ -7,7 +7,7 @@ Multi-repository workspace for **Codi**, the AI coding wingman, managed by **git
 | Repository | Path | Language | Description |
 |------------|------|----------|-------------|
 | `codi` | `./codi` | TypeScript | Main CLI application |
-| `codi` (Rust) | `./codi/codi-rs` | Rust | Rust port of codi |
+| `codi-rs` | `./codi-rs` | Rust | Rust port of codi |
 | `gitgrip` | `./gitgrip` | Rust | Multi-repo orchestration tool |
 
 ### Reference Repositories (Read-Only)
@@ -59,7 +59,7 @@ gr run test-ts
 ### Codi Rust
 
 ```bash
-cd codi/codi-rs
+cd codi-rs
 cargo build           # Debug build
 cargo build --release # Release build
 cargo test            # Run tests
@@ -104,7 +104,7 @@ codi-help               # Show all available commands
 |----------|-------|-------------|
 | `CODI_WORKSPACE` | workspace root | Root of this workspace |
 | `CODI_SRC` | `./codi` | Codi TypeScript source |
-| `CODI_RS_SRC` | `./codi/codi-rs` | Codi Rust source |
+| `CODI_RS_SRC` | `./codi-rs` | Codi Rust source |
 | `CODI_HOME` | `./.codi` | Local data directory |
 
 ### Shell Functions
@@ -123,7 +123,7 @@ codi-help               # Show all available commands
 | `codi-build-all` | Build TypeScript + Rust |
 | **Navigation** | |
 | `cdc` | `cd` to `codi/` |
-| `cdcr` | `cd` to `codi/codi-rs/` |
+| `cdcr` | `cd` to `codi-rs/` |
 | `cdg` | `cd` to `gitgrip/` |
 | `cdw` | `cd` to workspace root |
 | **Help** | |
