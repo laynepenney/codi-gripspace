@@ -96,6 +96,6 @@ Individual projects in this workspace have their own licenses:
 
 ## Security
 
-For security issues, please email [security@codi.dev](mailto:security@codi.dev) instead of using the public issue tracker.
+For security issues, please email [security@layne.pro](mailto:security@layne.pro) instead of using the public issue tracker.
 
 See [SECURITY.md](SECURITY.md) for more details.
