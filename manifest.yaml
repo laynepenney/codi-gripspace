@@ -34,6 +34,12 @@ repos:
     linkfile:
       - src: .claude/skills/codi
         dest: .claude/skills/codi
+
+  codi-rs:
+    url: https://github.com/laynepenney/codi-rs.git
+    path: ./codi-rs
+    default_branch: main
+    linkfile:
       - src: .claude/skills/codi-rs
         dest: .claude/skills/codi-rs
 
@@ -78,13 +84,13 @@ workspace:
       description: "Run codi TypeScript tests"
     # Rust codi
     build-rs:
-      command: "cd codi/codi-rs && cargo build"
+      command: "cd codi-rs && cargo build"
       description: "Build codi (Rust)"
     dev-rs:
-      command: "cd codi/codi-rs && cargo run"
+      command: "cd codi-rs && cargo run"
       description: "Run codi Rust"
     test-rs:
-      command: "cd codi/codi-rs && cargo test"
+      command: "cd codi-rs && cargo test"
       description: "Run codi Rust tests"
     # gitgrip
     build-gr:
@@ -95,10 +101,10 @@ workspace:
       description: "Run gitgrip tests"
     # Combined
     build-all:
-      command: "cd codi && pnpm install && pnpm build && cd codi-rs && cargo build && cd ../../gitgrip && cargo build"
+      command: "cd codi && pnpm install && pnpm build && cd ../codi-rs && cargo build && cd ../gitgrip && cargo build"
       description: "Build everything"
     test-all:
-      command: "cd codi && pnpm test && cd codi-rs && cargo test && cd ../../gitgrip && cargo test"
+      command: "cd codi && pnpm test && cd ../codi-rs && cargo test && cd ../gitgrip && cargo test"
       description: "Run all tests"
 
 settings:
