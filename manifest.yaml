@@ -103,6 +103,7 @@ workspace:
       - "Rust: anyhow for errors, tokio async runtime, cargo clippy before committing"
       - "Source envsetup.sh for shell functions: codi-build, codi-dev, codi-test, etc."
       - "Reference repos (ref/*) are read-only - for architecture patterns only"
+      - "AI agents: use --json flag on gr commands (gr status --json, gr pr status --json, gr pr checks --json) for machine-readable output"
     workflows:
       build: "gr run build-all"
       test: "gr run test-all"
