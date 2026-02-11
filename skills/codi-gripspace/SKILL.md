@@ -15,10 +15,22 @@ CLAUDE.md               # Workspace guide for Claude Code (linked into workspace
 AGENTS.md               # Multi-agent coordination guide (linked into workspace)
 CODI.md                 # General workspace overview (linked into workspace)
 envsetup.sh             # Shell functions and env vars (linked into workspace)
-.claude/skills/         # Claude Code skill files
-.opencode/skill/        # OpenCode skill files
-.codex/skills/          # Codex skill files
+skills/                 # Canonical skill files (single source of truth)
+  codi/SKILL.md         # Codi TypeScript CLI skill
+  codi-rs/SKILL.md      # Codi Rust skill
+  gitgrip/SKILL.md      # gitgrip multi-repo workflow skill
+  codi-gripspace/SKILL.md  # This file - gripspace configuration skill
 ```
+
+## Skills Convention
+
+All skill files live in `skills/<name>/SKILL.md` as the single canonical source. Linkfile entries in `manifest.yaml` distribute each skill into the three agent-format directories:
+
+- `.claude/skills/<name>/` - Claude Code
+- `.opencode/skill/<name>/` - OpenCode
+- `.codex/skills/<name>/` - Codex
+
+The `allowed-tools` frontmatter field is Claude-specific but harmlessly ignored by OpenCode and Codex.
 
 ## Manifest Schema
 
@@ -31,6 +43,12 @@ manifest:
   linkfile:               # Files to link into workspace root
     - src: CLAUDE.md
       dest: CLAUDE.md
+    - src: skills/codi    # Canonical skill -> all three formats
+      dest: .claude/skills/codi
+    - src: skills/codi
+      dest: .opencode/skill/codi
+    - src: skills/codi
+      dest: .codex/skills/codi
 
 repos:
   <name>:
@@ -38,9 +56,6 @@ repos:
     path: <local path>
     default_branch: main
     reference: true/false  # Read-only repos excluded from branch/PR ops
-    linkfile:              # Per-repo file links
-      - src: .claude/skills/<name>
-        dest: .claude/skills/<name>
     agent:                 # Per-repo agent context for `gr agent context`
       description: "..."
       language: typescript|rust|python
@@ -72,17 +87,12 @@ All skill formats use frontmatter + markdown:
 ---
 name: <skill-name>
 description: <when to use this skill>
-allowed-tools: Bash(cargo *)    # Claude Code only
+allowed-tools: Bash(cargo *)    # Claude Code only, ignored by others
 ---
 
 # Title
 Content with build commands, architecture, conventions...
 ```
-
-Skill files live in three format-specific directories:
-- `.claude/skills/<name>/SKILL.md` - Claude Code
-- `.opencode/skill/<name>/SKILL.md` - OpenCode
-- `.codex/skills/<name>/SKILL.md` - Codex
 
 ## How Linkfiles Work
 
@@ -90,12 +100,12 @@ The `linkfile` entries in `manifest.yaml` create symlinks from the gripspace int
 - `src` is relative to this repo
 - `dest` is relative to the workspace root
 - Directories are linked recursively
+- Multiple `dest` entries can share the same `src` (used for skill distribution)
 
 CLAUDE.md is special: it gets **composed** (concatenated) with any local CLAUDE.md in the manifest repo, so private workspace context merges with the shared gripspace context.
 
 ## Making Changes
 
-1. Edit files in this repo (the gripspace working copy is at `.gitgrip/spaces/codi-gripspace/`)
-2. Copy changes to the repo clone: `cp <file> ./codi-gripspace/`
-3. Use `gr` to branch, commit, push, and create PRs
-4. After merge, `gr sync` propagates changes to the workspace via linkfiles
+1. Edit files in the repo clone (`./codi-gripspace/`)
+2. Use `gr` to branch, commit, push, and create PRs
+3. After merge, `gr sync` propagates changes to the workspace via linkfiles
