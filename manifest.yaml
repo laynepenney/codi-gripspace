@@ -18,6 +18,9 @@ manifest:
       dest: .opencode/skill/codi
     - src: .opencode/skill/codi-rs
       dest: .opencode/skill/codi-rs
+    # Claude Code skill format
+    - src: .claude/skills/codi-gripspace
+      dest: .claude/skills/codi-gripspace
     # Codex skill format
     - src: .codex/skills/gitgrip
       dest: .codex/skills/gitgrip
