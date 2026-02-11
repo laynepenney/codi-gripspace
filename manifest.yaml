@@ -55,7 +55,7 @@ repos:
   opencode:
     url: https://github.com/anomalyco/opencode.git
     path: ./ref/opencode
-    default_branch: main
+    default_branch: dev
     reference: true
 
   aider:
