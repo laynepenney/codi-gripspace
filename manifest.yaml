@@ -11,32 +11,37 @@ manifest:
       dest: AGENTS.md
     - src: envsetup.sh
       dest: envsetup.sh
-    # OpenCode skill format
-    - src: .opencode/skill/gitgrip
-      dest: .opencode/skill/gitgrip
-    - src: .opencode/skill/codi
+    # Skills: canonical source -> all three agent format directories
+    - src: skills/codi
+      dest: .claude/skills/codi
+    - src: skills/codi
       dest: .opencode/skill/codi
-    - src: .opencode/skill/codi-rs
-      dest: .opencode/skill/codi-rs
-    # Claude Code skill format
-    - src: .claude/skills/codi-gripspace
-      dest: .claude/skills/codi-gripspace
-    # Codex skill format
-    - src: .codex/skills/gitgrip
-      dest: .codex/skills/gitgrip
-    - src: .codex/skills/codi
+    - src: skills/codi
       dest: .codex/skills/codi
-    - src: .codex/skills/codi-rs
+    - src: skills/codi-rs
+      dest: .claude/skills/codi-rs
+    - src: skills/codi-rs
+      dest: .opencode/skill/codi-rs
+    - src: skills/codi-rs
       dest: .codex/skills/codi-rs
+    - src: skills/gitgrip
+      dest: .claude/skills/gitgrip
+    - src: skills/gitgrip
+      dest: .opencode/skill/gitgrip
+    - src: skills/gitgrip
+      dest: .codex/skills/gitgrip
+    - src: skills/codi-gripspace
+      dest: .claude/skills/codi-gripspace
+    - src: skills/codi-gripspace
+      dest: .opencode/skill/codi-gripspace
+    - src: skills/codi-gripspace
+      dest: .codex/skills/codi-gripspace
 
 repos:
   codi:
     url: https://github.com/laynepenney/codi.git
     path: ./codi
     default_branch: main
-    linkfile:
-      - src: .claude/skills/codi
-        dest: .claude/skills/codi
     agent:
       description: "Codi AI coding wingman - TypeScript CLI with agent loop, tools, commands, and multiple AI providers"
       language: typescript
@@ -49,9 +54,6 @@ repos:
     url: https://github.com/laynepenney/codi-rs.git
     path: ./codi-rs
     default_branch: main
-    linkfile:
-      - src: .claude/skills/codi-rs
-        dest: .claude/skills/codi-rs
     agent:
       description: "Codi Rust port - terminal AI coding assistant with TUI, MCP support, and tree-sitter symbol index"
       language: rust
@@ -64,9 +66,6 @@ repos:
     url: https://github.com/laynepenney/gitgrip.git
     path: ./gitgrip
     default_branch: main
-    linkfile:
-      - src: .claude/skills/gitgrip
-        dest: .claude/skills/gitgrip
     agent:
       description: "Multi-repo workflow tool - synchronized branches, linked PRs, atomic merges across repositories"
       language: rust
