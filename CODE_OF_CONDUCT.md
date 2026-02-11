@@ -23,7 +23,7 @@ Examples of unacceptable behavior:
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to:
 
-**security@codi.dev**
+**security@layne.pro**
 
 All complaints will be reviewed and investigated promptly and fairly.
 

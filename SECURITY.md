@@ -6,7 +6,7 @@
 
 Instead, please report security issues by emailing us at:
 
-**security@codi.dev**
+**security@layne.pro**
 
 Please include as much of the following information as possible:
 - Description of the vulnerability
