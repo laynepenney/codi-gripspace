@@ -34,6 +34,13 @@ repos:
     linkfile:
       - src: .claude/skills/codi
         dest: .claude/skills/codi
+    agent:
+      description: "Codi AI coding wingman - TypeScript CLI with agent loop, tools, commands, and multiple AI providers"
+      language: typescript
+      build: "pnpm install && pnpm build"
+      test: "pnpm test"
+      lint: "pnpm build"
+      format: "pnpm build"
 
   codi-rs:
     url: https://github.com/laynepenney/codi-rs.git
@@ -42,6 +49,13 @@ repos:
     linkfile:
       - src: .claude/skills/codi-rs
         dest: .claude/skills/codi-rs
+    agent:
+      description: "Codi Rust port - terminal AI coding assistant with TUI, MCP support, and tree-sitter symbol index"
+      language: rust
+      build: "cargo build"
+      test: "cargo test"
+      lint: "cargo clippy"
+      format: "cargo fmt"
 
   gitgrip:
     url: https://github.com/laynepenney/gitgrip.git
@@ -50,6 +64,13 @@ repos:
     linkfile:
       - src: .claude/skills/gitgrip
         dest: .claude/skills/gitgrip
+    agent:
+      description: "Multi-repo workflow tool - synchronized branches, linked PRs, atomic merges across repositories"
+      language: rust
+      build: "cargo build"
+      test: "cargo test"
+      lint: "cargo clippy"
+      format: "cargo fmt"
 
   # Reference implementations (read-only)
   opencode:
@@ -71,6 +92,28 @@ repos:
     reference: true
 
 workspace:
+  agent:
+    description: "Codi workspace - multi-repo development environment for the Codi AI coding wingman (TypeScript + Rust) and gitgrip multi-repo tool"
+    conventions:
+      - "Always use `gr` for all git operations - never raw `git` or `gh` commands"
+      - "All development on feature branches (feat/*, fix/*, chore/*) - never push to main"
+      - "Use pull requests for all changes: `gr pr create -t 'title' --push`"
+      - "Run `gr sync` before starting new work"
+      - "TypeScript: ES Modules with .js extensions, async/await, Vitest for tests"
+      - "Rust: anyhow for errors, tokio async runtime, cargo clippy before committing"
+      - "Source envsetup.sh for shell functions: codi-build, codi-dev, codi-test, etc."
+      - "Reference repos (ref/*) are read-only - for architecture patterns only"
+      - "AI agents: use --json flag on gr commands (gr status --json, gr pr status --json, gr pr checks --json) for machine-readable output"
+    workflows:
+      build: "gr run build-all"
+      test: "gr run test-all"
+      dev-ts: "gr run dev-ts"
+      dev-rs: "gr run dev-rs"
+      sync: "gr sync"
+      new-feature: "gr sync && gr branch feat/<name> && gr status"
+      submit: "gr add . && gr commit -m '<message>' && gr push -u && gr pr create -t '<title>' --push"
+      cleanup: "gr checkout --base && gr sync && gr prune --execute"
+
   scripts:
     # TypeScript codi
     build-ts:
